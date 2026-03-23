@@ -24,6 +24,12 @@ except (ImportError, OSError):
     pass
 
 try:
+    from formal_xai.backends.n2v import N2VPyBackend
+    __all__.append("N2VPyBackend")
+except (ImportError, OSError):
+    pass
+
+try:
     from formal_xai.backends.marabou import MarabouBackend
     __all__.append("MarabouBackend")
 except (ImportError, OSError):

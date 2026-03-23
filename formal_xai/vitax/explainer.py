@@ -40,7 +40,7 @@ class VitaX:
     def __init__(
         self,
         model_path: str,
-        backend: str = "nnv",
+        backend: str = "n2v",
         reach_method: str = "approx-star",
         heuristic_method: str = "sa",
         epsilon: float = 35 / 255.0,
@@ -74,6 +74,22 @@ class VitaX:
         num_classes: int,
         **kwargs,
     ):
+        if name == "n2v":
+            from formal_xai.backends.n2v import N2VPyBackend
+
+            model = kwargs.pop("model", None)
+            if model is None:
+                raise ValueError(
+                    "The n2v backend requires a PyTorch model.  Pass "
+                    "model=<nn.Module> when creating VitaX with backend='n2v'."
+                )
+            return N2VPyBackend(
+                model=model,
+                output_size=num_classes,
+                reach_method=reach_method,
+                epsilon=epsilon,
+                model_path=model_path,
+            )
         if name == "nnv":
             from formal_xai.backends.nnv import NNVBackend
 

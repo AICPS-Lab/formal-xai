@@ -35,8 +35,8 @@ def parse_args():
                     help="Flattened input size (28*28 for MNIST)")
 
     # VitaX
-    p.add_argument("--backend", default="nnv", choices=["nnv", "marabou"],
-                    help="Verification backend (default: nnv)")
+    p.add_argument("--backend", default="n2v", choices=["n2v", "nnv", "marabou"],
+                    help="Verification backend (default: n2v)")
     p.add_argument("--reach-method", default="approx-star",
                     help="Reachability method (default: approx-star)")
     p.add_argument("--heuristic", default="sa",
@@ -86,6 +86,9 @@ def main():
 
     # --- Create VitaX ---
     try:
+        backend_kwargs = {}
+        if args.backend == "n2v":
+            backend_kwargs["model"] = model
         verifier = VitaX(
             model_path=args.onnx,
             backend=args.backend,
@@ -93,6 +96,7 @@ def main():
             heuristic_method=args.heuristic,
             epsilon=args.epsilon,
             num_classes=args.num_classes,
+            **backend_kwargs,
         )
     except ImportError as e:
         print(f"Backend not available: {e}")

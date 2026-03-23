@@ -35,6 +35,12 @@ data/**/*.tar
 models/*.pt
 models/*.onnx
 
+# Whitelist: test fixtures (committed for reproducibility)
+!tests/models/*.pt
+!tests/models/*.onnx
+!tests/models/*.pt
+!tests/ground_truth/
+
 # ---------- Outputs / Results ----------
 outputs/
 results/

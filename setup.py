@@ -19,6 +19,7 @@ setup(
     ],
     extras_require={
         "captum": ["captum>=0.5"],
+        "n2v": [],  # installed from submodule: pip install -e third_party/n2v
         "nnv": ["matlabengine"],
         "marabou": ["maraboupy"],
         "colorama": ["colorama>=0.4"],
